@@ -49,7 +49,6 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - test
-      - publish
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
