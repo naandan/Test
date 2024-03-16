@@ -1,7 +1,7 @@
 {
   "name": "test",
   "version": "1.0.0",
-  "description": "Hello World Project for testing",
+  "description": "Hello World project for testing",
   "type": "module",
   "main": "src/app.js",
   "types": "lib/index.d.ts",
