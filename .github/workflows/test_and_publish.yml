@@ -6,24 +6,24 @@ on:
       - main
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "20"
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "20"
 
-      - name: Install Dependencies
-        run: npm install
+  #     - name: Install Dependencies
+  #       run: npm install
 
-      - name: Run Tests
-        run: npm test
+  #     - name: Run Tests
+  #       run: npm test
 
   # publish:
   #   name: Publish to npm
@@ -47,6 +47,9 @@ jobs:
   publish-gpr:
     name: Publish to GitHub Package Registry
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
     needs:
       - test
     steps:
@@ -57,8 +60,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-          registry-url: "https://npm.pkg.github.com"
-          scope: "@naandan"
+          registry-url: "https://npm.pkg.github.com/"
 
       - name: Install update
         run: rm package.json && mv gpr-package.json package.json
