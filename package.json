@@ -1,5 +1,5 @@
 {
-  "name": "test-naandan",
+  "name": "@naandan/test-naandan",
   "version": "1.0.0",
   "description": "Hello World project for testing",
   "type": "module",
@@ -16,7 +16,7 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "publishConfig": {
-    "@naandan:registry": "https://npm.pkg.github.com/@naandan"
+    "@naandan:registry": "https://npm.pkg.github.com/"
   },
   "repository": {
     "type": "git",
