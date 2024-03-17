@@ -92,8 +92,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         with:
-          tag_name: v1.0.0 # Ganti dengan versi rilis yang sesuai
-          release_name: Release v1.0.0
+          tag_name: v1.0.1 # Ganti dengan versi rilis yang sesuai
+          release_name: Release v1.0.1
           body: |
             Deskripsi rilis Anda di sini.
           draft: false
