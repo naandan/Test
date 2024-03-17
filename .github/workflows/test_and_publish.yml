@@ -101,6 +101,7 @@ jobs:
   #         prerelease: false
   #     - name: Set Release ID
   #       run: echo "RELEASE_ID=${{ steps.create_release.outputs.id }}" >> $GITHUB_ENV
+
   ghcr-publish:
     name: Publish to GitHub Container Registry
     runs-on: ubuntu-latest
@@ -110,13 +111,10 @@ jobs:
         uses: actions/checkout@main
 
       - name: "Login to GitHub Container Registry"
-        uses: docker/login-action@v1
-        with:
-          registry: ghcr.io
-          username: ${{github.actor}}
-          password: ${{secrets.TOKEN_GITHUB}}
+        run: |
+          echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
       - name: "Build Inventory Image"
         run: |
-          docker build . --tag ghcr.io/naandan/test:latest
-          docker push ghcr.io/naandan/test:latest
+          docker build . --tag ghcr.io/naandan/test:v1
+          docker push ghcr.io/naandan/test:v1
