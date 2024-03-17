@@ -5,7 +5,10 @@
   "type": "module",
   "main": "src/app.js",
   "types": "lib/index.d.ts",
-  "files": ["data", "lib"],
+  "files": [
+    "data",
+    "lib"
+  ],
   "scripts": {
     "dev": "nodemon src/app.js",
     "start": "node src/app.js",
@@ -15,7 +18,12 @@
     "type": "git",
     "url": "git+https://github.com/naandan/test.git"
   },
-  "keywords": ["test", "hello", "world", "hello world"],
+  "keywords": [
+    "test",
+    "hello",
+    "world",
+    "hello world"
+  ],
   "author": "Nandan <nandanramdani608@gmail.com> (https://github.com/naandan)",
   "license": "MIT",
   "bugs": {
@@ -24,7 +32,7 @@
   "homepage": "https://github.com/naandan/test#readme",
   "funding": "https://github.com/sponsors/naandan",
   "engines": {
-    "node": ">=18"
+    "node": "20"
   },
   "dependencies": {
     "express": "^4.18.3"

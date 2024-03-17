@@ -1,4 +1,4 @@
-FROM node:18-bullseye-slim
+FROM node:20-bullseye-slim
 LABEL org.opencontainers.image.source="https://github.com/naandan/test"
 WORKDIR /app
 
