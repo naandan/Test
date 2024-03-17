@@ -118,5 +118,5 @@ jobs:
 
       - name: "Build Inventory Image"
         run: |
-          docker build . --tag ghcr.io/naadan/store:latest
-          docker push ghcr.io/naadan/store:latest
+          docker build . --tag ghcr.io/naandan/test:latest
+          docker push ghcr.io/naandan/test:latest
