@@ -138,7 +138,7 @@ jobs:
         run: docker push ${{ steps.set_image_tag.outputs.IMAGE_TAG }}
 
       - name: Save state
-        run: echo "::set-output name=name::$name::set-output name=value::$value::" >> $GITHUB_STATE
+        run: echo "{name}={value}" >> $GITHUB_STATE
 
       - name: Set output
-        run: echo "::set-output name=name::$name::set-output name=value::$value::" >> $GITHUB_OUTPUT
+        run: echo "{name}={value}" >> $GITHUB_OUTPUT
