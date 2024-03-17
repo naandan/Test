@@ -16,7 +16,7 @@
     "release": "standard-version && git push --follow-tags && npm publish"
   },
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@naandan"
+    "@naandan:registry": "https://npm.pkg.github.com"
   },
   "repository": {
     "type": "git",

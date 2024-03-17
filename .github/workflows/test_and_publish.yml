@@ -49,22 +49,14 @@ jobs:
     runs-on: ubuntu-latest # Ganti dengan jenis sistem operasi yang sesuai
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          node-version: "16" # Ganti dengan versi Node.js yang sesuai
-
-      - name: Authenticate with GitHub Package Registry
-        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.TOKEN_GITHUB}}" > ~/.npmrc
-
-      - name: Install dependencies
-        run: npm install # Atau ganti dengan perintah instalasi paket yang sesuai
-
-      - name: Publish to GitHub Package Registry
-        run: npm publish --access public --registry=https://npm.pkg.github.com/
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.TOKEN_GITHUB}}
 
   # create-release:
   #   name: Create Release
@@ -103,7 +95,7 @@ jobs:
 
   #   steps:
   #     - name: Checkout repository
-  #       uses: actions/checkout@main
+  #       uses: actions/checkout@v4
 
   #     - name: "Login to GitHub Container Registry"
   #       run: |
