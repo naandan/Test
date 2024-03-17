@@ -44,29 +44,57 @@ jobs:
   #       env:
   #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  publish-gpr:
-    name: Publish to GitHub Package Registry
+  # publish-gpr:
+  #   name: Publish to GitHub Package Registry
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #     packages: write
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@v3
+
+  #     - name: Setup Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "20"
+  #         registry-url: "https://npm.pkg.github.com/"
+
+  #     - name: Install update
+  #       run: rm package.json && mv gpr-package.json package.json
+
+  #     - name: Install dependencies
+  #       run: npm install
+
+  #     - name: Publish to GitHub Package Registry
+  #       run: npm publish
+  #       env:
+  #         NODE_AUTH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+
+  build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
+
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-          registry-url: "https://npm.pkg.github.com/"
 
-      - name: Install update
-        run: rm package.json && mv gpr-package.json package.json
-
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install
 
-      - name: Publish to GitHub Package Registry
-        run: npm publish
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0.0 # Ganti dengan versi rilis yang sesuai
+          release_name: Release v1.0.0
+          body: |
+            Deskripsi rilis Anda di sini.
+          draft: false
+          prerelease: false
