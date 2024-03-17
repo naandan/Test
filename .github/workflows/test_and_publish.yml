@@ -44,59 +44,60 @@ jobs:
   #       env:
   #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  # publish-gpr:
-  #   name: Publish to GitHub Package Registry
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
-
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "20"
-  #         registry-url: "https://npm.pkg.github.com/"
-
-  #     - name: Install update
-  #       run: rm package.json && mv gpr-package.json package.json
-
-  #     - name: Install dependencies
-  #       run: npm install
-
-  #     - name: Publish to GitHub Package Registry
-  #       run: npm publish
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-
-  build:
+  publish-gpr:
+    name: Publish to GitHub Package Registry
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - name: Checkout Repository
+      - name: Checkout repository
         uses: actions/checkout@v3
 
-      - name: Set up Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
+          registry-url: "https://npm.pkg.github.com/"
 
-      - name: Install Dependencies
+      # - name: Install update
+      #   run: rm package.json && mv gpr-package.json package.json
+
+      - name: Install dependencies
         run: npm install
 
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+      - name: Publish to GitHub Package Registry
+        run: npm publish
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
-        with:
-          tag_name: v1.0.3 # Ganti dengan versi rilis yang sesuai
-          release_name: Release v1.0.3
-          body: |
-            Deskripsi rilis Anda di sini.
-          draft: false
-          prerelease: false
-      - name: Set Release ID
-        run: echo "RELEASE_ID=${{ steps.create_release.outputs.id }}" >> $GITHUB_ENV
+          NODE_AUTH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+
+  # create-release:
+  #   name: Create Release
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #     - name: Checkout Repository
+  #       uses: actions/checkout@v3
+
+  #     - name: Set up Node.js
+  #       uses: actions/setup-node@v3
+  #       with:
+  #         node-version: "20"
+
+  #     - name: Install Dependencies
+  #       run: npm install
+
+  #     - name: Create Release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+  #       with:
+  #         tag_name: v1.0.3 # Ganti dengan versi rilis yang sesuai
+  #         release_name: Release v1.0.3
+  #         body: |
+  #           Deskripsi rilis Anda di sini.
+  #         draft: false
+  #         prerelease: false
+  #     - name: Set Release ID
+  #       run: echo "RELEASE_ID=${{ steps.create_release.outputs.id }}" >> $GITHUB_ENV
