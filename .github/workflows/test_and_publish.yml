@@ -92,9 +92,15 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         with:
-          tag_name: v1.0.1 # Ganti dengan versi rilis yang sesuai
-          release_name: Release v1.0.1
+          tag_name: v1.0.2 # Ganti dengan versi rilis yang sesuai
+          release_name: Release v1.0.2
           body: |
             Deskripsi rilis Anda di sini.
           draft: false
           prerelease: false
+
+      - name: Save state
+        run: echo "{name}={value}" >> $GITHUB_STATE
+
+      - name: Set output
+        run: echo "{name}={value}" >> $GITHUB_OUTPUT
