@@ -44,32 +44,27 @@ jobs:
   #       env:
   #         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-  # publish-gpr:
-  #   name: Publish to GitHub Package Registry
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: read
-  #     packages: write
-  #   steps:
-  #     - name: Checkout repository
-  #       uses: actions/checkout@v3
+  publish-gpr:
+    name: Publish to GitHub Package Registry
+    runs-on: ubuntu-latest # Ganti dengan jenis sistem operasi yang sesuai
 
-  #     - name: Setup Node.js
-  #       uses: actions/setup-node@v3
-  #       with:
-  #         node-version: "20"
-  #         registry-url: "https://npm.pkg.github.com/"
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
 
-  #     # - name: Install update
-  #     #   run: rm package.json && mv gpr-package.json package.json
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16" # Ganti dengan versi Node.js yang sesuai
 
-  #     - name: Install dependencies
-  #       run: npm install
+      - name: Authenticate with GitHub Package Registry
+        run: echo "//npm.pkg.github.com/:_authToken=${{secrets.TOKEN_GITHUB}}" > ~/.npmrc
 
-  #     - name: Publish to GitHub Package Registry
-  #       run: npm publish
-  #       env:
-  #         NODE_AUTH_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+      - name: Install dependencies
+        run: npm install # Atau ganti dengan perintah instalasi paket yang sesuai
+
+      - name: Publish to GitHub Package Registry
+        run: npm publish --access public --registry=https://npm.pkg.github.com/
 
   # create-release:
   #   name: Create Release
@@ -102,19 +97,19 @@ jobs:
   #     - name: Set Release ID
   #       run: echo "RELEASE_ID=${{ steps.create_release.outputs.id }}" >> $GITHUB_ENV
 
-  ghcr-publish:
-    name: Publish to GitHub Container Registry
-    runs-on: ubuntu-latest
+  # ghcr-publish:
+  #   name: Publish to GitHub Container Registry
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@main
+  #   steps:
+  #     - name: Checkout repository
+  #       uses: actions/checkout@main
 
-      - name: "Login to GitHub Container Registry"
-        run: |
-          echo ${{ secrets.TOKEN_GITHUB }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+  #     - name: "Login to GitHub Container Registry"
+  #       run: |
+  #         echo ${{ secrets.TOKEN_GITHUB }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-      - name: "Build Inventory Image"
-        run: |
-          docker build . --tag ghcr.io/naandan/test:v1
-          docker push ghcr.io/naandan/test:v1
+  #     - name: "Build Inventory Image"
+  #       run: |
+  #         docker build . --tag ghcr.io/naandan/test:v1
+  #         docker push ghcr.io/naandan/test:v1
