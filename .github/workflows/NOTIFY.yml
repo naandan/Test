@@ -23,6 +23,19 @@ jobs:
   notify:
     runs-on: ubuntu-latest
     steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Get last commit message for push
+        if: github.event_name == 'push'
+        id: get_commit_message
+        run: echo "::set-output name=message::$(git log -1 --pretty=%B)"
+      
+      - name: Get pull request title for PR
+        if: github.event_name == 'pull_request'
+        id: get_pr_title
+        run: echo "::set-output name=message::${{ github.event.pull_request.title }}"
+
       - name: Send message to Telegram
         uses: appleboy/telegram-action@master
         with:
@@ -34,4 +47,4 @@ jobs:
             By: "${{ github.actor }}"
             Commit: ${{ github.sha }}
             Ref: ${{ github.ref }}
-            Commit Message: ${{ steps.last_commit.outputs.message }}
+            Message: ${{ steps.get_commit_message.outputs.message || steps.get_pr_title.outputs.message }}
