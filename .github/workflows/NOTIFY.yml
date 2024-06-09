@@ -34,4 +34,4 @@ jobs:
             By: "${{ github.actor }}"
             Commit: ${{ github.sha }}
             Ref: ${{ github.ref }}
-            Action: ${{ github.action }}
+            Commit Message: ${{ steps.last_commit.outputs.message }}
